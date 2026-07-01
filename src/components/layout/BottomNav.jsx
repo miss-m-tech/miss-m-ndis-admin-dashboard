@@ -3,6 +3,7 @@ const navItems = [
   { key: "funding", label: "Funding", shortLabel: "Funds" },
   { key: "contacts", label: "Contacts", shortLabel: "Contacts" },
   { key: "tasks", label: "Tasks", shortLabel: "Tasks" },
+  { key: "invoices", label: "Invoices", shortLabel: "Bills" },
   { key: "more", label: "More", shortLabel: "More" }
 ];
 
