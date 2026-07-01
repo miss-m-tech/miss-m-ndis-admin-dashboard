@@ -5,6 +5,7 @@ import FundingPage from "./pages/FundingPage";
 import ContactsPage from "./pages/ContactsPage";
 import TasksPage from "./pages/TasksPage";
 import MorePage from "./pages/MorePage";
+import Invoices from "./pages/Invoices";
 
 import {
   participant as initialParticipant,
@@ -235,7 +236,7 @@ function App() {
     onNavigate: setCurrentPage,
   };
 
-  const renderPage = () => {
+    const renderPage = () => {
     switch (currentPage) {
       case "funding":
         return <FundingPage {...pageProps} />;
@@ -243,6 +244,8 @@ function App() {
         return <ContactsPage {...pageProps} />;
       case "tasks":
         return <TasksPage {...pageProps} />;
+      case "invoices":
+        return <Invoices {...pageProps} />;
       case "more":
         return <MorePage {...pageProps} />;
       case "dashboard":
@@ -250,7 +253,6 @@ function App() {
         return <DashboardPage {...pageProps} />;
     }
   };
-
 
   return (
     <AppShell
