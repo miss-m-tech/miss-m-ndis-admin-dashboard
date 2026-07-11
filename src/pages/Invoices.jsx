@@ -13,7 +13,11 @@ const emptyInvoice = {
   notes: ""
 };
 
-export default function Invoices({ categories = [] }) {
+export default function Invoices({
+  categories = [],
+  invoices = [],
+  onAddInvoice
+}) {
   const [invoice, setInvoice] = useState(emptyInvoice);
   const [analysisResult, setAnalysisResult] = useState(null);
 
@@ -28,12 +32,15 @@ export default function Invoices({ categories = [] }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
+    onAddInvoice(invoice);
+  
     setAnalysisResult({
-      status: "ready",
-      message:
-        "Invoice captured successfully. Validation checks will be added next."
+      status: "saved",
+      message: "Invoice saved successfully."
     });
+  
+    setInvoice(emptyInvoice);
   };
 
   return (
@@ -174,6 +181,26 @@ export default function Invoices({ categories = [] }) {
         <button type="submit">Analyse invoice</button>
       </form>
 
+      <section className="card">
+        <h2>Saved invoices</h2>
+      
+        {invoices.length === 0 ? (
+          <p>No invoices have been added yet.</p>
+        ) : (
+          <ul>
+            {invoices.map((invoice) => (
+              <li key={invoice.id}>
+                <strong>{invoice.providerName}</strong>
+                {" — "}
+                {invoice.invoiceNumber}
+                {" — $"}
+                {invoice.total}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+      
       {analysisResult && (
         <section className="card">
           <h2>Invoice analysis</h2>
