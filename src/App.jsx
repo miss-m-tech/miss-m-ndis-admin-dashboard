@@ -30,9 +30,9 @@ function App() {
     categories: initialCategories,
     contacts: initialContacts,
     expenses: initialExpenses,
+    invoices: [],
     tasks: initialTasks
   };
-
   const [plans, setPlans] = useLocalStorage("ndis-plans", [initialPlan]);
   const [activePlanId, setActivePlanId] = useLocalStorage("ndis-active-plan-id", "plan-1");
 
@@ -43,6 +43,7 @@ function App() {
   const categories = activePlan?.categories || [];
   const contacts = activePlan?.contacts || [];
   const expenses = activePlan?.expenses || [];
+  const invoices = activePlan?.invoices || [];
   const tasks = activePlan?.tasks || [];
 
   const updateActivePlan = (updater) => {
@@ -86,6 +87,20 @@ function App() {
     }));
   };
 
+  const handleAddInvoice = (newInvoice) => {
+      updateActivePlan((plan) => ({
+        ...plan,
+        invoices: [
+          {
+            id: `i${Date.now()}`,
+            createdAt: new Date().toISOString(),
+            ...newInvoice
+          },
+          ...(plan.invoices || [])
+        ]
+      }));
+    };
+  
   const handleAddContact = (newContact) => {
     updateActivePlan((plan) => ({
       ...plan,
@@ -212,6 +227,7 @@ function App() {
     categories,
     contacts,
     expenses,
+    invoices,
     tasks,
     alerts,
     periodStatus,
@@ -223,6 +239,7 @@ function App() {
     onSwitchPlan: setActivePlanId,
     onDeletePlan: handleDeletePlan,
     onAddExpense: handleAddExpense,
+    onAddInvoice: handleAddInvoice,
     onAddContact: handleAddContact,
     onAddTask: handleAddTask,
     onDeleteTask: handleDeleteTask,
